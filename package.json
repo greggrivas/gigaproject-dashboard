@@ -1,0 +1,12 @@
+{
+  "name": "gigaproject-dashboard-public",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm --workspace gigaproject-dashboard-app run dev",
+    "build": "npm --workspace gigaproject-dashboard-app run build",
+    "lint": "npm --workspace gigaproject-dashboard-app run lint"
+  }
+}

@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
+.vite/
+.turbo/
+coverage/
+
+# Local/private dependency checkout
+packages/openbridge-webcomponents/
+
+# Editor and generated workspace files
+.idea/
+.vscode/
+.cursor/
+*.swp
