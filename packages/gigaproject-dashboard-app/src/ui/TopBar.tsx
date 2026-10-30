@@ -1,11 +1,16 @@
-import { useEffect, useRef } from "react";
+import { ObcAlertButton } from "@oicl/openbridge-webcomponents-react/components/alert-button/alert-button";
+import { ObcClock } from "@oicl/openbridge-webcomponents-react/components/clock/clock";
+import { ObcTopBar } from "@oicl/openbridge-webcomponents-react/components/top-bar/top-bar";
+import { AlertType } from "@oicl/openbridge-webcomponents/dist/types.js";
 import { useMinuteUpdate } from "../hooks/useMinuteUpdate";
 
 type TopBarProps = {
   appTitle: string;
   pageName: string;
+  alertCount: number;
   menuButtonActivated: boolean;
   dimmingButtonActivated: boolean;
+  onAlertClicked: () => void;
   onMenuButtonClicked: () => void;
   onDimmingButtonClicked: () => void;
 };
@@ -13,40 +18,33 @@ type TopBarProps = {
 export function TopBar({
   appTitle,
   pageName,
+  alertCount,
   menuButtonActivated,
   dimmingButtonActivated,
+  onAlertClicked,
   onMenuButtonClicked,
   onDimmingButtonClicked,
 }: TopBarProps) {
-  const topBarRef = useRef<HTMLElement | null>(null);
   const date = useMinuteUpdate();
 
-  useEffect(() => {
-    const topBar = topBarRef.current;
-    if (!topBar) return;
-
-    const onDimming = () => onDimmingButtonClicked();
-    const onMenu = () => onMenuButtonClicked();
-    topBar.addEventListener("menu-button-clicked", onMenu);
-    topBar.addEventListener("dimming-button-clicked", onDimming);
-
-    return () => {
-      topBar.removeEventListener("menu-button-clicked", onMenu);
-      topBar.removeEventListener("dimming-button-clicked", onDimming);
-    };
-  }, [onDimmingButtonClicked, onMenuButtonClicked]);
-
   return (
-    <obc-top-bar
-      ref={topBarRef}
+    <ObcTopBar
       appTitle={appTitle}
       pageName={pageName}
       menuButtonActivated={menuButtonActivated}
       showClock
       showDimmingButton
       dimmingButtonActivated={dimmingButtonActivated}
+      onMenuButtonClicked={onMenuButtonClicked}
+      onDimmingButtonClicked={onDimmingButtonClicked}
     >
-      <obc-clock slot="clock" date={date}></obc-clock>
-    </obc-top-bar>
+      <ObcAlertButton
+        slot="alerts"
+        nAlerts={alertCount}
+        alertType={AlertType.Warning}
+        onClickAlert={onAlertClicked}
+      />
+      <ObcClock slot="clock" date={date} />
+    </ObcTopBar>
   );
 }

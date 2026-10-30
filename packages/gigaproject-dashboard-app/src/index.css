@@ -1,8 +1,13 @@
-@import "../../openbridge-webcomponents/src/main.css";
+@import "@oicl/openbridge-webcomponents/dist/openbridge.css";
 
 @font-face {
   font-family: "Noto Sans";
   src: url("/NotoSans.ttf") format("truetype");
+}
+
+:root {
+  --dashboard-sidebar-width: 64px;
+  --console-gap: 8px;
 }
 
 html,
@@ -12,7 +17,7 @@ body,
   width: 100%;
   height: 100%;
   background-color: var(--container-backdrop-color);
-  color: var(--normal-enabled-text-color);
+  color: var(--element-active-color);
   font-family: "Noto Sans", sans-serif;
 }
 
@@ -27,13 +32,13 @@ header {
 main {
   position: relative;
   box-sizing: border-box;
-  min-height: 100%;
   height: 100%;
   padding-top: var(--app-components-topbar-touch-target-size);
+  overflow: auto;
 }
 
 .main.nav-open {
-  padding-left: 232px;
+  padding-left: var(--dashboard-sidebar-width);
 }
 
 .dashboard-sidebar {
@@ -41,31 +46,14 @@ main {
   top: var(--app-components-topbar-touch-target-size);
   left: 0;
   bottom: 0;
-  width: 220px;
-  padding: 14px 12px;
-  border-right: 1px solid var(--normal-enabled-border-color);
-  background: var(--container-neutral-color);
+  width: var(--dashboard-sidebar-width);
   z-index: 30;
-  display: grid;
-  align-content: start;
-  gap: 10px;
 }
 
-.sidebar-item {
-  height: 42px;
-  border: 1px solid var(--normal-enabled-border-color);
-  border-radius: 8px;
-  background: var(--container-backdrop-color);
-  color: var(--normal-enabled-text-color);
-  text-align: left;
-  padding: 0 12px;
-  cursor: pointer;
-}
-
-.sidebar-item.active {
-  background: var(--normal-enabled-background-color);
-  color: var(--normal-enabled-text-color);
-  border-color: var(--normal-enabled-border-color);
+.dashboard-sidebar obc-navigation-menu {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .brilliance-menu {
@@ -75,425 +63,341 @@ main {
   z-index: 50;
 }
 
+/* Panels */
+
 .panel {
-  background: var(--container-neutral-color);
-  border: 1px solid var(--normal-enabled-border-color);
-  border-radius: 6px;
-  padding: 10px;
-}
-
-.panel h4 {
-  margin: 0 0 8px 0;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--normal-enabled-text-color);
-}
-
-.muted {
-  color: var(--normal-enabled-text-color);
-  font-size: 13px;
-}
-
-.dashboard-shell {
-  display: grid;
-  gap: 12px;
-  padding: 14px;
-}
-
-.usv-panel {
-  background: var(--container-neutral-color);
-  border: 1px solid var(--normal-enabled-border-color);
-  border-radius: 6px;
-  padding: 12px;
-}
-
-.usv-panel h3 {
-  margin: 0;
-  font-size: 26px;
-  color: var(--normal-enabled-text-color);
-}
-
-.meta-row {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--normal-enabled-text-color);
-}
-
-.checklist {
-  margin-top: 16px;
-  display: grid;
-  gap: 8px;
-  font-size: 14px;
-}
-
-.dashboard-top {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(300px, 1fr));
-  gap: 12px;
-  align-items: start;
-}
-
-.nav-column {
-  display: grid;
-  gap: 10px;
-}
-
-.tile {
-  min-height: 220px;
-}
-
-.tile-thruster,
-.tile-compass {
-  min-height: 410px;
-}
-
-.tile-thruster obc-azimuth-thruster,
-.tile-compass obc-compass {
-  display: block;
-  width: 100%;
-  height: 320px;
-}
-
-.tile-compass obc-compass-indicator {
-  display: none;
-}
-
-.tile-compass {
-  min-height: 480px;
-}
-
-.tile-compass obc-compass {
-  width: 100%;
-  height: 420px;
-}
-
-.nav-core-layout {
-  display: block;
-  min-height: 430px;
-  height: calc(100% - 26px);
-}
-
-.nav-core-stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  align-items: end;
-}
-
-.nav-primary {
-  font-size: 34px;
-  line-height: 1;
-  font-weight: 600;
-  color: var(--normal-enabled-text-color);
-}
-
-.sog-center {
-  min-height: 210px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.tile-speed obc-speed-gauge {
-  display: block;
-  width: 210px;
-  height: 210px;
-}
-
-.tile-speed obc-gauge-radial {
-  display: block;
-  width: 220px;
-  height: 220px;
-}
-
-.sog-readout {
-  margin-top: 4px;
-  text-align: center;
-  display: grid;
-  justify-items: center;
-}
-
-.thruster-readouts {
-  margin-top: 8px;
-  display: grid;
-  gap: 8px;
-}
-
-.readout-row {
-  display: grid;
-  grid-template-columns: 95px 1fr;
-  align-items: center;
-  gap: 10px;
-}
-
-.readout-meta {
-  display: grid;
-  gap: 2px;
-  font-size: 12px;
-}
-
-.readout-meta strong {
-  font-size: 18px;
-}
-
-.readout-slider {
-  width: 100%;
-}
-
-.status-list {
-  display: grid;
-  gap: 10px;
-}
-
-.sensor-label {
-  margin-bottom: 8px;
-  color: var(--normal-enabled-text-color);
-  font-size: 13px;
-}
-
-.tile-telemetry {
-  grid-column: span 2;
-}
-
-.dashboard-lower {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(260px, 1fr));
-  gap: 12px;
-}
-
-.tile-nav-stats {
-  min-height: unset;
-  padding-bottom: 8px;
-}
-
-.telemetry-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(220px, 1fr));
-  gap: 12px;
-}
-
-.metric-label {
-  margin-bottom: 6px;
-  font-size: 13px;
-  color: var(--normal-enabled-text-color);
-}
-
-.metric-value {
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--normal-enabled-text-color);
-}
-
-.metric-value.large {
-  font-size: 28px;
-}
-
-.pitchyaw-layout {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.pitchyaw-stats {
-  min-width: 120px;
-  display: grid;
-  gap: 14px;
-}
-
-.pitchyaw-layout obc-pitch-roll {
-  width: 62%;
-  height: 280px;
-}
-
-.map-shell {
-  display: grid;
-  grid-template-columns: 290px 1fr;
-  gap: 12px;
-  padding: 14px;
-  min-height: calc(100vh - var(--app-components-topbar-touch-target-size));
-}
-
-.map-sidepanel {
-  background: var(--container-neutral-color);
-  border: 1px solid var(--normal-enabled-border-color);
-  border-radius: 6px;
-  padding: 10px;
+  min-width: 0;
+  min-height: 0;
 }
 
 .panel-title {
-  margin: 10px 0 8px;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--normal-enabled-text-color);
+  padding: 8px 12px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--element-neutral-color);
 }
 
-.mission-block {
-  padding: 8px;
-  border: 1px solid var(--normal-enabled-border-color);
-  border-radius: 6px;
-  background: var(--container-backdrop-color);
+.panel-body {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 8px 12px 12px;
+}
+
+/* Sizes an instrument to the largest square that fits its share of the panel. */
+.instrument {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  container-type: size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.instrument > * {
+  display: block;
+  flex: none;
+  width: min(100cqw, 100cqh);
+  height: min(100cqw, 100cqh);
+}
+
+/* The gauge's readout hangs slightly below its square. */
+.instrument:has(> obc-gauge-radial) {
+  box-sizing: border-box;
+  padding-bottom: 8px;
+}
+
+.readout-row {
+  display: flex;
+  justify-content: space-around;
+  gap: 16px;
+}
+
+/* Dashboard console */
+
+.console {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) clamp(236px, 27vh, 280px);
+  gap: var(--console-gap);
+  height: 100%;
+  padding: var(--console-gap);
+}
+
+.command-bar {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-outline-color);
+  border-radius: 8px;
+  background: var(--container-background-color);
+}
+
+.command-status {
+  margin-right: auto;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.control-grid {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: center;
+  gap: 4px 12px;
+}
+
+.control-grid-nav {
+  grid-template-columns: 88px minmax(0, 1fr) auto;
+}
+
+.heading-steps {
+  display: flex;
+  gap: 4px;
+}
+
+.console-strip {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: var(--console-gap);
+  min-height: 0;
+}
+
+.motion-body {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.motion-readouts {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  align-content: center;
+  gap: 16px;
+}
+
+.battery-list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.battery-label {
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: var(--element-neutral-color);
+}
+
+/* Map */
+
+.map-shell {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: var(--console-gap);
+  height: 100%;
+  padding: var(--console-gap);
+}
+
+.map-sidepanel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--console-gap);
+  min-height: 0;
+}
+
+.map-sidepanel > .panel {
+  height: auto;
+}
+
+.mission-name {
+  font-weight: 600;
 }
 
 .mission-list {
   display: grid;
-  gap: 6px;
+  gap: 4px;
 }
 
 .row {
   padding: 8px;
-  border: 1px solid var(--normal-enabled-border-color);
+  border: 1px solid var(--border-outline-color);
   border-radius: 4px;
-  background: var(--container-backdrop-color);
   font-size: 13px;
 }
 
 .row.active {
-  border-color: var(--normal-enabled-border-color);
-  color: var(--normal-enabled-text-color);
-}
-
-.map-workspace {
-  background: var(--container-neutral-color);
-  border: 1px solid var(--normal-enabled-border-color);
-  border-radius: 6px;
-  overflow: hidden;
+  border-color: var(--instrument-enhanced-secondary-color);
+  font-weight: 600;
 }
 
 .map-alertbar {
-  height: 42px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: 8px;
-  padding: 0 10px;
-  background: var(--container-backdrop-color);
   font-size: 13px;
+}
+
+.map-alertbar obc-alert-icon {
+  display: block;
+  flex: none;
+  width: 24px;
+  height: 24px;
 }
 
 .map-alertbar span {
   margin-right: auto;
-  color: var(--normal-enabled-text-color);
-}
-
-.map-alertbar button,
-.map-tools button {
-  border: 1px solid var(--normal-enabled-border-color);
-  background: var(--container-neutral-color);
-  color: var(--normal-enabled-text-color);
-  border-radius: 4px;
-  padding: 4px 8px;
-  cursor: pointer;
 }
 
 .map-canvas {
   position: relative;
-  min-height: 620px;
+  flex: 1;
+  min-height: 0;
+  border: 1px solid var(--border-outline-color);
+  border-radius: 4px;
   background: var(--container-backdrop-color);
 }
 
 .map-overlay {
   position: absolute;
-  left: 30px;
-  top: 24px;
-  color: var(--normal-enabled-text-color);
-  font-size: 14px;
-  letter-spacing: 0.04em;
+  left: 16px;
+  top: 16px;
+  font-size: 13px;
+  color: var(--element-neutral-color);
 }
 
 .map-tools {
   position: absolute;
-  right: 10px;
-  top: 14px;
+  right: 8px;
+  top: 8px;
   display: grid;
   gap: 8px;
 }
 
-.single-screen {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-  padding: 14px;
-}
+/* Cameras */
 
 .camera-screen {
-  grid-template-columns: repeat(2, minmax(320px, 1fr));
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: var(--console-gap);
+  height: 100%;
+  padding: var(--console-gap);
+}
+
+.camera-screen > .panel:first-child {
+  grid-column: 1 / -1;
 }
 
 .placeholder-panel {
-  min-height: 170px;
-  border: 1px dashed var(--normal-enabled-border-color);
-  border-radius: 8px;
+  flex: 1;
+  min-height: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  color: var(--normal-enabled-text-color);
+  gap: 8px;
+  border: 1px dashed var(--border-outline-color);
+  border-radius: 4px;
   background: var(--container-backdrop-color);
-  padding: 16px;
+  font-size: 13px;
+  color: var(--element-neutral-color);
 }
 
-.placeholder-panel.large {
-  min-height: 320px;
+.placeholder-panel obi-camera-off {
+  width: 32px;
+  height: 32px;
 }
 
-@media (max-width: 1300px) {
-  .dashboard-lower {
-    grid-template-columns: repeat(2, minmax(240px, 1fr));
-  }
-
-  .dashboard-top {
-    grid-template-columns: 1fr;
-  }
-
-  .tile-telemetry {
-    grid-column: span 1;
-  }
-
-  .map-shell {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 760px) {
-  .main.nav-open {
-    padding-left: 0;
-  }
-
-  .dashboard-sidebar {
-    top: calc(var(--app-components-topbar-touch-target-size) + 4px);
-    left: 8px;
-    width: calc(100% - 16px);
-    bottom: auto;
-    grid-template-columns: repeat(3, minmax(90px, 1fr));
-    align-content: normal;
-  }
-
-  .dashboard-top,
-  .dashboard-lower,
-  .telemetry-grid,
-  .camera-screen {
-    grid-template-columns: 1fr;
-    overflow-x: visible;
-  }
-
-  .pitchyaw-layout {
-    flex-direction: column;
+/* On short screens the controls sit beside the compass so it stays the largest instrument. */
+@media (max-height: 900px) and (min-height: 701px) and (min-width: 1101px) {
+  .console-nav .panel-body {
+    flex-direction: row;
     align-items: stretch;
   }
 
-  .tile-compass obc-compass,
-  .tile-compass obc-compass-indicator,
-  .pitchyaw-layout obc-pitch-roll {
-    width: 100%;
-    height: 320px;
+  .control-grid-nav {
+    flex: none;
+    width: 216px;
+    grid-template-columns: 72px minmax(0, 1fr);
+    align-content: center;
   }
 
-  .nav-primary {
-    font-size: 28px;
+  .heading-steps {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+  }
+}
+
+/* Below a full console, panels keep a fixed size and the page scrolls. */
+@media (max-width: 1100px), (max-height: 700px) {
+  .console,
+  .map-shell,
+  .camera-screen {
+    height: auto;
+  }
+
+  .console {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+  }
+
+  .console-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .command-bar {
+    flex-wrap: wrap;
+  }
+
+  .console-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .instrument {
+    flex: none;
+    height: 280px;
+  }
+
+  .console-nav .instrument {
+    height: 400px;
+  }
+
+  .motion-body .instrument {
+    flex: 1;
+  }
+
+  .map-canvas {
+    flex: none;
+    height: 480px;
+  }
+
+  .camera-screen {
+    grid-template-rows: none;
+  }
+
+  .placeholder-panel {
+    flex: none;
+    height: 240px;
+  }
+}
+
+@media (max-width: 700px) {
+  .console,
+  .console-strip,
+  .map-shell,
+  .camera-screen {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

@@ -1,34 +1,19 @@
-import { useEffect, useRef } from "react";
+import { ObcBrillianceMenu } from "@oicl/openbridge-webcomponents-react/components/brilliance-menu/brilliance-menu";
+import type { ObcPaletteChangeEvent } from "@oicl/openbridge-webcomponents/dist/components/brilliance-menu/brilliance-menu.js";
 
 type BrillianceMenuProps = {
   className?: string;
 };
 
+const onPaletteChanged = (event: ObcPaletteChangeEvent) => {
+  document.documentElement.setAttribute("data-obc-theme", event.detail.value);
+};
+
 export function BrillianceMenu({ className }: BrillianceMenuProps) {
-  const menuRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const element = menuRef.current;
-    if (!element) return;
-
-    const onPaletteChange = (event: Event) => {
-      const customEvent = event as CustomEvent<{ value: string }>;
-      const palette = customEvent.detail?.value;
-      if (palette) {
-        document.documentElement.setAttribute("data-obc-theme", palette);
-      }
-    };
-
-    element.addEventListener("palette-changed", onPaletteChange);
-    return () => {
-      element.removeEventListener("palette-changed", onPaletteChange);
-    };
-  }, []);
-
   return (
-    <obc-brilliance-menu
-      ref={menuRef}
+    <ObcBrillianceMenu
       className={className}
-    ></obc-brilliance-menu>
+      onPaletteChanged={onPaletteChanged}
+    />
   );
 }

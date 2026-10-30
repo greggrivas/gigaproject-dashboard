@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "npm --workspace gigaproject-dashboard-app run dev",
     "build": "npm --workspace gigaproject-dashboard-app run build",
-    "lint": "npm --workspace gigaproject-dashboard-app run lint"
+    "lint": "npm --workspace gigaproject-dashboard-app run lint",
+    "typecheck": "npm --workspace gigaproject-dashboard-app run typecheck"
   }
 }

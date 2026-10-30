@@ -5,11 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc --noEmit && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@oicl/openbridge-webcomponents": "2.1.0",
+    "@oicl/openbridge-webcomponents-react": "2.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
